@@ -1,0 +1,48 @@
+﻿<Window
+    x:Class="WpfSkiaImageDemo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfSkiaImageDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:siv="https://github.com/kekyo/SkiaImageView"
+    Title="WpfSkiaImageDemo"
+    Width="500"
+    Height="300"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+
+    <DockPanel Margin="5">
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock DockPanel.Dock="Right" Text="{Binding Counter, StringFormat='{}{0:f2} sec'}" />
+            <TextBlock Text="{Binding Message}" />
+        </DockPanel>
+
+        <Button
+            Command="{Binding ClearImageCommand}"
+            Content="Clear Images"
+            DockPanel.Dock="Top" />
+
+        <UniformGrid Columns="2">
+            <DockPanel>
+                <Button
+                    Command="{Binding LoadWpfImageCommand}"
+                    Content="Load BitmapSource (WPF)"
+                    DockPanel.Dock="Top" />
+                <Image Source="{Binding WpfImage}" />
+            </DockPanel>
+
+            <DockPanel>
+                <Button
+                    Command="{Binding LoadSkiaImageCommand}"
+                    Content="Load SKBitmap (SkiaSharp)"
+                    DockPanel.Dock="Top" />
+                <siv:SKImageView Source="{Binding SkiaImage}" Stretch="Uniform" />
+            </DockPanel>
+        </UniformGrid>
+    </DockPanel>
+
+</Window>
