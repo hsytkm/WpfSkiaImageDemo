@@ -16,8 +16,9 @@ Image Width=10368, Height=7776
 
 ||msec|
 |--|--|
-|WPF|454|
-|SkiaSharp|1058|
+|WPF - BitmapImage|454|
+|WPF - SkiaSharp|1058|
+|Avalonia (SkiaSharp)|810|
 
 ![demo.gif](https://github.com/hsytkm/WpfSkiaImageDemo/blob/main/WpfSkiaImageDemo/demo.gif)
 

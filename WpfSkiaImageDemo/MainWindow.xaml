@@ -32,7 +32,7 @@
                     Command="{Binding LoadWpfImageCommand}"
                     Content="Load BitmapSource (WPF)"
                     DockPanel.Dock="Top" />
-                <Image Source="{Binding WpfImage}" />
+                <Image RenderOptions.BitmapScalingMode="LowQuality" Source="{Binding WpfImage}" />
             </DockPanel>
 
             <DockPanel>
@@ -40,7 +40,11 @@
                     Command="{Binding LoadSkiaImageCommand}"
                     Content="Load SKBitmap (SkiaSharp)"
                     DockPanel.Dock="Top" />
-                <siv:SKImageView Source="{Binding SkiaImage}" Stretch="Uniform" />
+                <siv:SKImageView
+                    RenderMode="Synchronously"
+                    RenderOptions.BitmapScalingMode="LowQuality"
+                    Source="{Binding SkiaImage}"
+                    Stretch="Uniform" />
             </DockPanel>
         </UniformGrid>
     </DockPanel>
