@@ -14,11 +14,16 @@ Skia was slower than WPF's BitmapSource.
 
 Image Width=10368, Height=7776
 
-||msec|
-|--|--|
-|WPF - BitmapImage|454|
-|WPF - SkiaSharp|1058|
-|Avalonia (SkiaSharp)|810|
+||Processing time (msec)|Memory usage|
+|--|--|--|
+|WPF - BitmapImage|454|Medium|
+|WPF - SkiaSharp|1058|Large|
+|Avalonia (SkiaSharp)|810|Large|
+|WinUI3 (v1.4.231115000)|470|Small|
+
+I found that WPF's BitmapImage is the fastest, but WinUI 3 consumes less memory.
+
+
 
 ![demo.gif](https://github.com/hsytkm/WpfSkiaImageDemo/blob/main/WpfSkiaImageDemo/demo.gif)
 

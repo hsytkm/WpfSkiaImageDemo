@@ -1,0 +1,31 @@
+<Window
+    x:Class="WinUI3ImageDemo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3ImageDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Margin="5">
+        <TextBlock x:Name="CounterText" Text="{x:Bind ViewModel.Counter, Mode=OneWay}" />
+        <TextBlock
+            x:Name="MessageText"
+            RelativePanel.Below="CounterText"
+            Text="{x:Bind ViewModel.Message, Mode=OneWay}" />
+        <Button
+            x:Name="ClearButton"
+            Command="{x:Bind ViewModel.ClearImageCommand}"
+            Content="Clear Images"
+            RelativePanel.Below="MessageText" />
+        <Button
+            x:Name="LoadButton"
+            Command="{x:Bind ViewModel.LoadWpfImageCommand}"
+            Content="Load Image"
+            RelativePanel.Below="ClearButton" />
+
+        <!--  Width="100000" Height="100000"  -->
+        <Image RelativePanel.Below="LoadButton" Source="{x:Bind ViewModel.WinUI3Image, Mode=OneWay}" />
+
+    </RelativePanel>
+</Window>
