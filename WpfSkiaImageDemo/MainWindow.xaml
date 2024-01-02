@@ -26,19 +26,27 @@
             Content="Clear Images"
             DockPanel.Dock="Top" />
 
-        <UniformGrid Columns="2">
+        <UniformGrid Columns="3">
             <DockPanel>
                 <Button
                     Command="{Binding LoadWpfImageCommand}"
                     Content="Load BitmapSource (WPF)"
                     DockPanel.Dock="Top" />
-                <Image RenderOptions.BitmapScalingMode="LowQuality" Source="{Binding WpfImage}" />
+                <Image RenderOptions.BitmapScalingMode="LowQuality" Source="{Binding WpfImage1}" />
+            </DockPanel>
+
+            <DockPanel>
+                <Button
+                    Command="{Binding LoadWpfImageFromSkiaCommand}"
+                    Content="Load SKBitmap (Using SkiaSharp.Views)"
+                    DockPanel.Dock="Top" />
+                <Image RenderOptions.BitmapScalingMode="LowQuality" Source="{Binding WpfImage2}" />
             </DockPanel>
 
             <DockPanel>
                 <Button
                     Command="{Binding LoadSkiaImageCommand}"
-                    Content="Load SKBitmap (SkiaSharp)"
+                    Content="Load SKBitmap (Using SkiaImageView)"
                     DockPanel.Dock="Top" />
                 <siv:SKImageView
                     RenderMode="Synchronously"

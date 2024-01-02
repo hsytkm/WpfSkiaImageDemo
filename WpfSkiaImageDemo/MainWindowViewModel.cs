@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SkiaSharp;
+using SkiaSharp.Views.WPF;
 
 namespace WpfSkiaImageDemo;
 
@@ -15,7 +16,10 @@ public sealed partial class MainWindowViewModel : ObservableObject
     private double _counter;
 
     [ObservableProperty]
-    private BitmapSource? _wpfImage;
+    private BitmapSource? _wpfImage1;
+
+    [ObservableProperty]
+    private BitmapSource? _wpfImage2;
 
     [ObservableProperty]
     private SKBitmap? _skiaImage;
@@ -38,7 +42,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void ClearImage()
     {
-        WpfImage = null;
+        WpfImage1 = null;
+        WpfImage2 = null;
 
         (SkiaImage as IDisposable)?.Dispose();
         SkiaImage = null;
@@ -55,11 +60,23 @@ public sealed partial class MainWindowViewModel : ObservableObject
         ClearImage();
         var sw = Stopwatch.StartNew();
 
-        var image = await Task.Run(() => BitmapSourceEx.ToBitmapSource(ImagePath));
-        WpfImage = image;
+        WpfImage1 = await Task.Run(() => BitmapSourceEx.ToBitmapSource(ImagePath));
 
         sw.Stop();
         Message = $"Wpf : {sw.ElapsedMilliseconds} msec";
+    }
+
+    [RelayCommand]
+    private async Task LoadWpfImageFromSkiaAsync()
+    {
+        ClearImage();
+        var sw = Stopwatch.StartNew();
+
+        using var image = await LoadSKBitmapAsync(ImagePath);
+        WpfImage2 = image.ToWriteableBitmap();
+
+        sw.Stop();
+        Message = $"SkiaSharp : {sw.ElapsedMilliseconds} msec";
     }
 
     [RelayCommand]
@@ -68,17 +85,21 @@ public sealed partial class MainWindowViewModel : ObservableObject
         ClearImage();
         var sw = Stopwatch.StartNew();
 
-#if false
-        var bs = await File.ReadAllBytesAsync(ImagePath);
-        var image = await Task.Run(() => SKBitmap.Decode(bs.AsSpan()));
-#else
-        // 上と同等のパフォーマンスやったけど、こちらの方が伸び代を感じるので…
-        using var stream = File.OpenRead(ImagePath);
-        var image = await Task.Run(() => SKBitmap.Decode(stream));
-#endif
-        SkiaImage = image;
+        SkiaImage = await LoadSKBitmapAsync(ImagePath);
 
         sw.Stop();
-        Message = $"Skia: {sw.ElapsedMilliseconds} msec";
+        Message = $"SkiaImageView : {sw.ElapsedMilliseconds} msec";
+    }
+
+    private static async Task<SKBitmap> LoadSKBitmapAsync(string path)
+    {
+#if false
+        var bs = await File.ReadAllBytesAsync(path);
+        return await Task.Run(() => SKBitmap.Decode(bs.AsSpan()));
+#else
+        // 上と同等のパフォーマンスやったけど、こちらの方が伸び代を感じるので…
+        using var stream = File.OpenRead(path);
+        return await Task.Run(() => SKBitmap.Decode(stream));
+#endif
     }
 }

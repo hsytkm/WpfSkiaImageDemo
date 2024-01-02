@@ -48,11 +48,7 @@ public sealed partial class MainViewModel : ViewModelBase
         ClearImage();
         var sw = Stopwatch.StartNew();
 
-        var image = await Task.Run(() =>
-        {
-            using var stream = File.OpenRead(ImagePath);
-            return new Bitmap(stream);
-        });
+        var image = await Task.Run(() => new Bitmap(ImagePath));
         BitmapImage = image;
 
         sw.Stop();
