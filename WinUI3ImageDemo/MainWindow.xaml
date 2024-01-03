@@ -18,14 +18,25 @@
             Command="{x:Bind ViewModel.ClearImageCommand}"
             Content="Clear Images"
             RelativePanel.Below="MessageText" />
-        <Button
-            x:Name="LoadButton"
-            Command="{x:Bind ViewModel.LoadWpfImageCommand}"
-            Content="Load Image"
-            RelativePanel.Below="ClearButton" />
 
-        <!--  Width="100000" Height="100000"  -->
-        <Image RelativePanel.Below="LoadButton" Source="{x:Bind ViewModel.WinUI3Image, Mode=OneWay}" />
+        <RelativePanel x:Name="Image1Panel" RelativePanel.Below="ClearButton">
+            <Button
+                x:Name="LoadButton1"
+                Command="{x:Bind ViewModel.LoadBitmapImageCommand}"
+                Content="Load BitmapImage" />
+
+            <!--  Width="100000" Height="100000"  -->
+            <Image RelativePanel.Below="LoadButton1" Source="{x:Bind ViewModel.BitmapImage, Mode=OneWay}" />
+        </RelativePanel>
+
+        <RelativePanel x:Name="Image2Panel" RelativePanel.Below="Image1Panel">
+            <Button
+                x:Name="LoadButton2"
+                Command="{x:Bind ViewModel.LoadWriteableBitmapCommand}"
+                Content="Load WriteableBitmap" />
+
+            <Image RelativePanel.Below="LoadButton2" Source="{x:Bind ViewModel.WriteableBitmap, Mode=OneWay}" />
+        </RelativePanel>
 
     </RelativePanel>
 </Window>

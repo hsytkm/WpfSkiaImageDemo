@@ -48,8 +48,17 @@ public sealed partial class MainViewModel : ViewModelBase
         ClearImage();
         var sw = Stopwatch.StartNew();
 
-        var image = await Task.Run(() => new Bitmap(ImagePath));
+#if false
+        BitmapImage = await Task.Run(() => new Bitmap(ImagePath));
+#else
+        // 上と同等のパフォーマンスやったけど、こちらの方が伸び代を感じるので…
+        var image = await Task.Run(() =>
+        {
+            using var stream = File.OpenRead(ImagePath);
+            return new Bitmap(stream);
+        });
         BitmapImage = image;
+#endif
 
         sw.Stop();
         Message = $"{sw.ElapsedMilliseconds} msec";

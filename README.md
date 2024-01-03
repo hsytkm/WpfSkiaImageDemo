@@ -19,9 +19,10 @@ Image Width=10368, Height=7776
 |WPF - BitmapImage|454|Medium|
 |WPF - SkiaSharp|1058|Large|
 |Avalonia (SkiaSharp)|810|Large|
-|WinUI3 (v1.4.231115000)|470|Small|
+|WinUI3 v1.4 - BitmapImage|470|Small|
+|WinUI3 v1.4 - WriteableBitmap|500|Large|
 
-I found that WPF's BitmapImage is the fastest, but WinUI 3 consumes less memory.
+I found that WPF's BitmapImage is the fastest, but WinUI3's BitmapImage consumes less memory.
 
 
 
